@@ -12,7 +12,6 @@
 #include <map>
 #include <string>
 #include <iostream>
-using namespace std;
 
 #define UNITTEST(t) class t; static proxy p(#t, create< t >);
 
@@ -34,7 +33,8 @@ UnitTest *create()
 typedef UnitTest *maker_t();
 
 // our global factory
-extern map< string, maker_t *, less<string> > &unit_factory();
+extern std::map< std::string, maker_t *,
+                 std::less<std::string> > &unit_factory();
 
 inline void assert_equal();
 
@@ -52,11 +52,11 @@ extern "C"
     class proxy
     {
     public:
-       proxy(string testName, UnitTest *(*f)())
+       proxy(std::string testName, UnitTest *(*f)())
        {
           // register the maker with the factory
-          cout << "Creating test: " << testName << endl;
-          unit_factory().insert( pair<string, maker_t*>(testName, f));
+          std::cout << "Creating test: " << testName << std::endl;
+          unit_factory().insert(std::pair<std::string, maker_t*>(testName, f));
        }
     };
 }

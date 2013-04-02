@@ -7,7 +7,6 @@
 #define TESTRESULT_H
 
 #include <string>
-using namespace std;
 
 enum TestStatus
 {
@@ -20,10 +19,10 @@ class TestResult
 
 public:
 
-        TestResult(string testName, string errorMsg, TestStatus status);
+        TestResult(std::string testName, std::string errorMsg, TestStatus status);
 
-        string testName;
-        string errorMsg;
+        std::string testName;
+        std::string errorMsg;
         TestStatus status;
 
 };

@@ -7,7 +7,6 @@
 #define TESTREGISTRAR_H
 
 #include <string>
-using namespace std;
 
 class TestRegistrar
 {

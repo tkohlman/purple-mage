@@ -5,7 +5,8 @@
 
 #include "testresult.h"
 
-TestResult::TestResult(string testName, string errorMsg, TestStatus status):
+TestResult::TestResult(std::string testName, std::string errorMsg,
+                       TestStatus status):
         testName(testName), errorMsg(errorMsg), status(status)
 {
 

@@ -16,7 +16,6 @@
 #include <string>
 #include <iostream>
 #include <list>
-using namespace std;
 
 class DriveUnit : TestRegistrar, public Subject
 {
@@ -34,21 +33,21 @@ public:
     void unregisterObserver(Observer *observer);
     void notifyObservers();
 
-    const vector< UnitFunction* > &getFunctions() const;
+    const std::vector< UnitFunction* > &getFunctions() const;
 
 private:
 
-    vector< UnitTest* > tests;
+    std::vector< UnitTest* > tests;
 
-    vector< UnitFunction* > functions;
+    std::vector< UnitFunction* > functions;
 
-    vector< TestResult* > *results;
+    std::vector< TestResult* > *results;
 
-    vector< Observer* > observers;
+    std::vector< Observer* > observers;
 
     int success, failure;
 
-    list<void *> dl_list; // list to hold handles for dynamic libs
+    std::list<void *> dl_list; // list to hold handles for dynamic libs
 };
 
 #endif // DRIVEUNIT_H

@@ -12,7 +12,6 @@
 #include <map>
 #include <string>
 #include <iostream>
-using namespace std;
 
 #define REGRESSIONTEST(t) class t; static regression_proxy p(#t, create< t >);
 
@@ -34,7 +33,8 @@ RegressionTest *create()
 typedef RegressionTest *maker_t();
 
 // our global factory
-extern map< string, maker_t *, less<string> > &regression_factory();
+extern std::map< std::string, maker_t *,
+                 std::less<std::string> > &regression_factory();
 
 inline void assert_equal();
 
@@ -52,11 +52,11 @@ extern "C"
     class regression_proxy
     {
     public:
-       regression_proxy(string testName, RegressionTest *(*f)())
+       regression_proxy(std::string testName, RegressionTest *(*f)())
        {
           // register the maker with the factory
-          cout << "Creating regression test: " << testName << endl;
-          regression_factory().insert( pair<string, maker_t*>(testName, f));
+          std::cout << "Creating regression test: " << testName << std::endl;
+          regression_factory().insert(std::pair<std::string, maker_t*>(testName, f));
        }
     };
 }
