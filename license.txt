@@ -1,7 +1,3 @@
-purple-mage
-===========
-
-C++ Unit Test Framework
 
 This software is released under the MIT License. For full license text,
 see http://opensource.org/licenses/MIT.
