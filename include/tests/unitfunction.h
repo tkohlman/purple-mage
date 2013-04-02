@@ -1,7 +1,7 @@
 #ifndef UNITFUNCTION_H
 #define UNITFUNCTION_H
 
-#include "TestResult.h"
+#include "testresult.h"
 #include <string>
 #include <iostream>
 using namespace std;

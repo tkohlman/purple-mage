@@ -1,9 +1,9 @@
 #ifndef TESTA_H
 #define TESTA_H
 
-#include "UnitTest.h"
+#include "unittest.h"
 
-UNITTEST(TestA);
+UNITTEST(TestA)
 
 class TestA : public UnitTest
 {

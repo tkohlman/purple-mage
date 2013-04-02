@@ -1,7 +1,7 @@
 #ifndef REGRESSIONSUITEA_H
 #define REGRESSIONSUITEA_H
 
-#include "RegressionTest.h"
+#include "regressiontest.h"
 
 //UNITTEST(TestA);
 
@@ -20,8 +20,5 @@ private:
         static void regressionTest4();
 
 };
-
-
-
 
 #endif // REGRESSIONSUITEA_H

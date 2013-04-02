@@ -1,8 +1,8 @@
 #ifndef UNITTEST_H
 #define UNITTEST_H
 
-#include "AssertionException.h"
-#include "TestRegistrar.h"
+#include "assertionexception.h"
+#include "testregistrar.h"
 
 #include <map>
 #include <string>

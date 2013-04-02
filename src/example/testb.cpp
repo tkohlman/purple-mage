@@ -1,5 +1,5 @@
 
-#include "TestB.h"
+#include "testb.h"
 
 void TestB::register_all(TestRegistrar *registrar)
 {

@@ -1,5 +1,5 @@
 
-#include "UnitFunction.h"
+#include "unitfunction.h"
 
 UnitFunction::UnitFunction(std::string suiteName, std::string testName, void (*f)()):
         suiteName(suiteName), testName(testName), function(f)

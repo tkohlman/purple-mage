@@ -1,8 +1,8 @@
 #ifndef REGRESSIONTEST_H
 #define REGRESSIONTEST_H
 
-#include "AssertionException.h"
-#include "TestRegistrar.h"
+#include "assertionexception.h"
+#include "testregistrar.h"
 
 #include <map>
 #include <string>

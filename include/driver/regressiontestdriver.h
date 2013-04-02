@@ -1,11 +1,10 @@
-#ifndef DRIVEUNIT_H
-#define DRIVEUNIT_H
+#ifndef REGRESSIONTESTDRIVER_H
+#define REGRESSIONTESTDRIVER_H
 
-
-#include "TestRegistrar.h"
-#include "UnitTest.h"
-#include "UnitFunction.h"
-#include "Subject.h"
+#include "testregistrar.h"
+#include "regressiontest.h"
+#include "unitfunction.h"
+#include "subject.h"
 
 #include <vector>
 #include <string>
@@ -13,16 +12,16 @@
 #include <list>
 using namespace std;
 
-class DriveUnit : TestRegistrar, public Subject
+class RegressionTestDriver : TestRegistrar
 {
 public:
 
-    DriveUnit();
+    RegressionTestDriver();
 
     void load(std::string solib);
     void unload();
     void execute();
-    void add_unit(UnitTest *unit);
+    void add_test(RegressionTest *unit);
     void register_f(std::string suiteName, std::string testName, void (*f)());
 
     void registerObserver(Observer *observer);
@@ -33,7 +32,7 @@ public:
 
 private:
 
-    vector< UnitTest* > tests;
+    vector< RegressionTest* > tests;
 
     vector< UnitFunction* > functions;
 
@@ -46,4 +45,4 @@ private:
     list<void *> dl_list; // list to hold handles for dynamic libs
 };
 
-#endif // DRIVEUNIT_H
+#endif // REGRESSIONTESTDRIVER_H

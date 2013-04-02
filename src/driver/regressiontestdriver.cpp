@@ -1,5 +1,6 @@
 
-#include "DriveUnit.h"
+
+#include "regressiontestdriver.h"
 
 #include <string>
 #include <dlfcn.h>
@@ -9,24 +10,24 @@
 #include <cstring>
 using namespace std;
 
-// our global factory()
-map<string, maker_t *, less<string> > &unit_factory()
+// our global regression_factory()
+map<string, maker_t *, less<string> > &regression_factory()
 {
     static map<string,maker_t *, less<string> > *fact = new map<string, maker_t *, less<string> >();
     return *fact;
 }
 
-DriveUnit::DriveUnit()
+RegressionTestDriver::RegressionTestDriver()
 {
     results = new vector<TestResult*>();
 }
 
-const vector< UnitFunction* > &DriveUnit::getFunctions() const
+const vector< UnitFunction* > &RegressionTestDriver::getFunctions() const
 {
     return functions;
 }
 
-void DriveUnit::load(std::string solib)
+void RegressionTestDriver::load(std::string solib)
 {
     unload();
 
@@ -46,15 +47,15 @@ void DriveUnit::load(std::string solib)
     dlib = NULL;
 
     map<string, maker_t *, less<string> >::iterator fitr;
-    for(fitr = unit_factory().begin(); fitr != unit_factory().end(); fitr++)
+    for(fitr = regression_factory().begin(); fitr != regression_factory().end(); fitr++)
     {
         cout << fitr->first << endl;
-        UnitTest *test = fitr->second();
+        RegressionTest *test = fitr->second();
         test->register_all(this);
     }
 }
 
-void DriveUnit::unload()
+void RegressionTestDriver::unload()
 {
     // close all the dynamic libs we opened
     list<void *>::iterator itr;
@@ -64,11 +65,11 @@ void DriveUnit::unload()
         *itr = NULL;
     }
     dl_list.clear();
-    unit_factory().clear();
+    regression_factory().clear();
     functions.clear();
 }
 
-void DriveUnit::execute()
+void RegressionTestDriver::execute()
 {
     results->clear();
     cout << "Executing all unit tests..." << endl;
@@ -98,24 +99,24 @@ void DriveUnit::execute()
     cout << "Success rate: " << (double)success/results->size() << endl;
 }
 
-void DriveUnit::add_unit(UnitTest *unit)
+void RegressionTestDriver::add_test(RegressionTest *unit)
 {
     tests.push_back(unit);
 }
 
-void DriveUnit::register_f(std::string suiteName, std::string testName, void (*f)())
+void RegressionTestDriver::register_f(std::string suiteName, std::string testName, void (*f)())
 {
     cout << "Registering function " << testName << " in suite " << suiteName << endl;
     UnitFunction *func = new UnitFunction(suiteName, testName, f);
     functions.push_back(func);
 }
 
-void DriveUnit::registerObserver(Observer *observer)
+void RegressionTestDriver::registerObserver(Observer *observer)
 {
     observers.push_back(observer);
 }
 
-void DriveUnit::unregisterObserver(Observer *observer)
+void RegressionTestDriver::unregisterObserver(Observer *observer)
 {
     vector< Observer* >::iterator iter = observers.begin();
 
@@ -128,7 +129,7 @@ void DriveUnit::unregisterObserver(Observer *observer)
     }
 }
 
-void DriveUnit::notifyObservers()
+void RegressionTestDriver::notifyObservers()
 {
     vector< Observer* >::iterator iter = observers.begin();
 

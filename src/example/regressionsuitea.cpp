@@ -1,5 +1,5 @@
 
-#include "RegressionSuiteA.h"
+#include "regressionsuitea.h"
 
 void RegressionSuiteA::register_all(TestRegistrar *registrar)
 {
