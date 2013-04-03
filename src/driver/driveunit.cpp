@@ -12,25 +12,10 @@
 #include <stdlib.h>
 #include <cstring>
 
-// our global factory()
-std::map<std::string, maker_t *, std::less<std::string> > &unit_factory()
-{
-    static std::map<std::string, maker_t *, std::less<std::string> > *fact =
-        new std::map<std::string, maker_t *, std::less<std::string> >();
-    return *fact;
-}
-
 DriveUnit::DriveUnit()
 {
     results = new std::vector<TestResult*>();
-
-    std::map<std::string, maker_t *, std::less<std::string> >::iterator fitr;
-    for(fitr = unit_factory().begin(); fitr != unit_factory().end(); fitr++)
-    {
-        std::cout << fitr->first << std::endl;
-        UnitTest *test = fitr->second();
-        test->register_all(this);
-    }
+    UnitFactory::getInstance().registerAll(this);
 }
 
 const std::vector< UnitFunction* > &DriveUnit::getFunctions() const
@@ -42,7 +27,6 @@ void DriveUnit::load(std::string solib)
 {
     unload();
 
-    // names
     void *dlib;
 
     printf("Loading shared object: %s\n", solib.c_str());
@@ -53,17 +37,11 @@ void DriveUnit::load(std::string solib)
         std::cerr << dlerror() << std::endl;
         exit(-1);
     }
-    // add the handle to our list
+
     dl_list.insert(dl_list.end(), dlib);
     dlib = NULL;
 
-    std::map<std::string, maker_t *, std::less<std::string> >::iterator fitr;
-    for(fitr = unit_factory().begin(); fitr != unit_factory().end(); fitr++)
-    {
-        std::cout << fitr->first << std::endl;
-        UnitTest *test = fitr->second();
-        test->register_all(this);
-    }
+    UnitFactory::getInstance().registerAll(this);
 }
 
 void DriveUnit::unload()
@@ -76,7 +54,7 @@ void DriveUnit::unload()
         *itr = NULL;
     }
     dl_list.clear();
-    unit_factory().clear();
+    UnitFactory::getInstance().clear();
     functions.clear();
 }
 

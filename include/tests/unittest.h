@@ -8,6 +8,7 @@
 
 #include "assertionexception.h"
 #include "testregistrar.h"
+#include "unitfactory.h"
 
 #include <map>
 #include <string>
@@ -29,13 +30,6 @@ UnitTest *create()
     return new ConcreteUnitTest();
 }
 
-// typedef to make it easier to set up our factory
-typedef UnitTest *maker_t();
-
-// our global factory
-extern std::map< std::string, maker_t *,
-                 std::less<std::string> > &unit_factory();
-
 inline void assert_equal();
 
 inline void assert_equal(int i, int j)
@@ -54,9 +48,9 @@ extern "C"
     public:
        proxy(std::string testName, UnitTest *(*f)())
        {
-          // register the maker with the factory
+          // register the ctor function pointer with the factory
           std::cout << "Creating test: " << testName << std::endl;
-          unit_factory().insert(std::pair<std::string, maker_t*>(testName, f));
+          UnitFactory::getInstance().insert(UnitTestTemplate(testName, f));
        }
     };
 }

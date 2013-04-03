@@ -13,6 +13,7 @@
 MODULES =
 MODULES += src/driver/
 MODULES += src/example/
+MODULES += src/factory/
 MODULES += src/purplemage/
 MODULES += src/tests/
 
@@ -23,6 +24,7 @@ INCLUDES =
 INCLUDES += include/commands
 INCLUDES += include/driver
 INCLUDES += include/example
+INCLUDES += include/factory
 INCLUDES += include/observer
 INCLUDES += include/tests
 
