@@ -4,6 +4,7 @@
  */
 
 #include "driveunit.h"
+#include "regressiontestdriver.h"
 
 #include <iostream>
 
@@ -11,7 +12,9 @@ int main( int argc, char **argv )
 {
 	std::cout << "purplemage v1.0" << std::endl;
 
-	DriveUnit *driver = new DriveUnit();
-	driver->execute();
-	delete driver;
+	DriveUnit unitDriver;
+	unitDriver.execute();
+
+	RegressionTestDriver regressionTestDriver;
+	regressionTestDriver.execute();
 }

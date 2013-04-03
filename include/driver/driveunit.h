@@ -8,7 +8,6 @@
 
 
 #include "testregistrar.h"
-#include "unitfactory.h"
 #include "unittest.h"
 #include "unitfunction.h"
 #include "subject.h"

@@ -6,11 +6,9 @@
 #ifndef UNITTEST_H
 #define UNITTEST_H
 
-#include "assertionexception.h"
 #include "testregistrar.h"
 #include "unitfactory.h"
 
-#include <map>
 #include <string>
 #include <iostream>
 
@@ -22,23 +20,14 @@ class UnitTest
 public:
 
     virtual void register_all(TestRegistrar *registrar) = 0;
+
+    static void assert_equal(int i, int j);
 };
 
 template <class ConcreteUnitTest>
 UnitTest *create()
 {
     return new ConcreteUnitTest();
-}
-
-inline void assert_equal();
-
-inline void assert_equal(int i, int j)
-{
-    if (i != j)
-    {
-        AssertionException e;
-        throw e;
-    }
 }
 
 extern "C"
@@ -49,7 +38,7 @@ extern "C"
        proxy(std::string testName, UnitTest *(*f)())
        {
           // register the ctor function pointer with the factory
-          std::cout << "Creating test: " << testName << std::endl;
+          std::cout << "Creating unit test: " << testName << std::endl;
           UnitFactory::getInstance().insert(UnitTestTemplate(testName, f));
        }
     };

@@ -12,9 +12,9 @@
 class UnitTest;
 class TestRegistrar;
 
-typedef UnitTest *ctor_fptr();
-typedef std::map<std::string, ctor_fptr *, std::less<std::string> > FactoryMap;
-typedef std::pair<std::string, ctor_fptr *> UnitTestTemplate;
+typedef UnitTest *UnitTestCtor();
+typedef std::map<std::string, UnitTestCtor *, std::less<std::string> > UnitFactoryMap;
+typedef std::pair<std::string, UnitTestCtor *> UnitTestTemplate;
 
 class UnitFactory
 {
@@ -35,7 +35,7 @@ private:
     UnitFactory(const UnitFactory &other);      // Unimplemented
     void operator=(const UnitFactory &other);   // Unimplemented
 
-    FactoryMap factoryMap;
+    UnitFactoryMap factoryMap;
 };
 
 #endif // UNITFACTORY_H

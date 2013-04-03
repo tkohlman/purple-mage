@@ -8,7 +8,7 @@
 
 #include "regressiontest.h"
 
-//UNITTEST(TestA);
+REGRESSIONTEST(RegressionSuiteA)
 
 class RegressionSuiteA : public RegressionTest
 {

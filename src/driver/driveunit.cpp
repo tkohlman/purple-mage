@@ -4,6 +4,7 @@
  */
 
 #include "driveunit.h"
+#include "unitfactory.h"
 
 #include <string>
 #include <dlfcn.h>

@@ -3,26 +3,27 @@
  * See license.txt for copying permission.
  */
 
-#include "unitfactory.h"
+
+#include "regressionfactory.h"
 #include "testregistrar.h"
-#include "unittest.h"
+#include "regressiontest.h"
 
 #include <iostream>
 
-UnitFactory &UnitFactory::getInstance()
+RegressionFactory &RegressionFactory::getInstance()
 {
-    static UnitFactory instance;
+    static RegressionFactory instance;
     return instance;
 }
 
-void UnitFactory::insert(const UnitTestTemplate &testTemplate)
+void RegressionFactory::insert(const RegressionTestTemplate &testTemplate)
 {
     factoryMap.insert(testTemplate);
 }
 
-void UnitFactory::registerAll(TestRegistrar *registrar)
+void RegressionFactory::registerAll(TestRegistrar *registrar)
 {
-    UnitFactoryMap::iterator iter = factoryMap.begin();
+    RegressionFactoryMap::iterator iter = factoryMap.begin();
     while(iter != factoryMap.end())
     {
         std::cout << iter->first << std::endl;
@@ -31,7 +32,7 @@ void UnitFactory::registerAll(TestRegistrar *registrar)
     }
 }
 
-void UnitFactory::clear()
+void RegressionFactory::clear()
 {
     factoryMap.clear();
 }

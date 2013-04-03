@@ -4,6 +4,7 @@
  */
 
 #include "regressiontestdriver.h"
+#include "regressionfactory.h"
 
 #include <string>
 #include <dlfcn.h>
@@ -12,17 +13,10 @@
 #include <stdlib.h>
 #include <cstring>
 
-// our global regression_factory()
-std::map<std::string, maker_t *, std::less<std::string> > &regression_factory()
-{
-    static std::map<std::string, maker_t *, std::less<std::string> > *fact =
-        new std::map<std::string, maker_t *, std::less<std::string> >();
-    return *fact;
-}
-
 RegressionTestDriver::RegressionTestDriver()
 {
     results = new std::vector<TestResult*>();
+    RegressionFactory::getInstance().registerAll(this);
 }
 
 const std::vector< UnitFunction* > &RegressionTestDriver::getFunctions() const
@@ -34,7 +28,6 @@ void RegressionTestDriver::load(std::string solib)
 {
     unload();
 
-    // names
     void *dlib;
 
     printf("Loading shared object: %s\n", solib.c_str());
@@ -45,22 +38,15 @@ void RegressionTestDriver::load(std::string solib)
         std::cerr << dlerror() << std::endl;
         exit(-1);
     }
-    // add the handle to our list
+
     dl_list.insert(dl_list.end(), dlib);
     dlib = NULL;
 
-    std::map<std::string, maker_t *, std::less<std::string> >::iterator fitr;
-    for(fitr = regression_factory().begin(); fitr != regression_factory().end(); fitr++)
-    {
-        std::cout << fitr->first << std::endl;
-        RegressionTest *test = fitr->second();
-        test->register_all(this);
-    }
+    RegressionFactory::getInstance().registerAll(this);
 }
 
 void RegressionTestDriver::unload()
 {
-    // close all the dynamic libs we opened
     std::list<void *>::iterator itr;
     for(itr = dl_list.begin(); itr != dl_list.end(); itr++)
     {
@@ -68,14 +54,14 @@ void RegressionTestDriver::unload()
         *itr = NULL;
     }
     dl_list.clear();
-    regression_factory().clear();
+    RegressionFactory::getInstance().clear();
     functions.clear();
 }
 
 void RegressionTestDriver::execute()
 {
     results->clear();
-    std::cout << "Executing all unit tests..." << std::endl;
+    std::cout << "Executing all regression tests..." << std::endl;
     std::vector< UnitFunction* >::iterator f_iter;
 
     success = failure = 0;
@@ -98,7 +84,12 @@ void RegressionTestDriver::execute()
     }
 
     std::cout << success << " of " << results->size() << " tests passed" << std::endl;
-    std::cout << "Success rate: " << (double)success/results->size() << std::endl;
+
+    if (results->size() > 0)
+    {
+        std::cout << "Success rate: " << (double)success/results->size()
+            << std::endl;
+    }
 }
 
 void RegressionTestDriver::add_test(RegressionTest *unit)
