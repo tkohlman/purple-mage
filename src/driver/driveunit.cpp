@@ -23,6 +23,14 @@ std::map<std::string, maker_t *, std::less<std::string> > &unit_factory()
 DriveUnit::DriveUnit()
 {
     results = new std::vector<TestResult*>();
+
+    std::map<std::string, maker_t *, std::less<std::string> >::iterator fitr;
+    for(fitr = unit_factory().begin(); fitr != unit_factory().end(); fitr++)
+    {
+        std::cout << fitr->first << std::endl;
+        UnitTest *test = fitr->second();
+        test->register_all(this);
+    }
 }
 
 const std::vector< UnitFunction* > &DriveUnit::getFunctions() const
@@ -97,8 +105,15 @@ void DriveUnit::execute()
         sleep(1);
     }
 
-    std::cout << success << " of " << results->size() << " tests passed" << std::endl;
-    std::cout << "Success rate: " << (double)success/results->size() << std::endl;
+    std::cout << success << " of " << results->size() << " tests passed"
+            << std::endl;
+
+    if (results->size() > 0)
+    {
+
+        std::cout << "Success rate: " << (double)success/results->size()
+            << std::endl;
+    }
 }
 
 void DriveUnit::add_unit(UnitTest *unit)
