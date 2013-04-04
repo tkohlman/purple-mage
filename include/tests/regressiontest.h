@@ -7,7 +7,7 @@
 #define REGRESSIONTEST_H
 
 #include "testregistrar.h"
-#include "regressionfactory.h"
+#include "dynamicfactory.h"
 
 #include <string>
 #include <iostream>
@@ -35,11 +35,13 @@ extern "C"
     class regression_proxy
     {
     public:
-       regression_proxy(std::string testName, RegressionTest *(*f)())
-       {
-          std::cout << "Creating regression test: " << testName << std::endl;
-          RegressionFactory::getInstance().insert(RegressionTestTemplate(testName, f));
-       }
+        regression_proxy(std::string testName, RegressionTest *(*f)())
+        {
+            std::cout << "Creating regression test: " << testName << std::endl;
+            DynamicFactory<RegressionTest>::getInstance().insert(
+                DynamicFactory<RegressionTest>::DynamicTypeTemplate(testName,
+                    f));
+        }
     };
 }
 

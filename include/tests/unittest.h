@@ -7,7 +7,7 @@
 #define UNITTEST_H
 
 #include "testregistrar.h"
-#include "unitfactory.h"
+#include "dynamicfactory.h"
 
 #include <string>
 #include <iostream>
@@ -39,7 +39,8 @@ extern "C"
        {
           // register the ctor function pointer with the factory
           std::cout << "Creating unit test: " << testName << std::endl;
-          UnitFactory::getInstance().insert(UnitTestTemplate(testName, f));
+          DynamicFactory<UnitTest>::getInstance().insert(
+                DynamicFactory<UnitTest>::DynamicTypeTemplate(testName, f));
        }
     };
 }

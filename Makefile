@@ -13,7 +13,6 @@
 MODULES =
 MODULES += src/driver/
 MODULES += src/example/
-MODULES += src/factory/
 MODULES += src/purplemage/
 MODULES += src/tests/
 

@@ -4,7 +4,7 @@
  */
 
 #include "regressiontestdriver.h"
-#include "regressionfactory.h"
+#include "dynamicfactory.h"
 
 #include <string>
 #include <dlfcn.h>
@@ -16,7 +16,7 @@
 RegressionTestDriver::RegressionTestDriver()
 {
     results = new std::vector<TestResult*>();
-    RegressionFactory::getInstance().registerAll(this);
+    DynamicFactory<RegressionTest>::getInstance().registerAll(this);
 }
 
 const std::vector< UnitFunction* > &RegressionTestDriver::getFunctions() const
@@ -42,7 +42,7 @@ void RegressionTestDriver::load(std::string solib)
     dl_list.insert(dl_list.end(), dlib);
     dlib = NULL;
 
-    RegressionFactory::getInstance().registerAll(this);
+    DynamicFactory<RegressionTest>::getInstance().registerAll(this);
 }
 
 void RegressionTestDriver::unload()
@@ -54,7 +54,7 @@ void RegressionTestDriver::unload()
         *itr = NULL;
     }
     dl_list.clear();
-    RegressionFactory::getInstance().clear();
+    DynamicFactory<RegressionTest>::getInstance().clear();
     functions.clear();
 }
 

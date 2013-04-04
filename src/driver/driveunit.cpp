@@ -4,7 +4,7 @@
  */
 
 #include "driveunit.h"
-#include "unitfactory.h"
+#include "dynamicfactory.h"
 
 #include <string>
 #include <dlfcn.h>
@@ -16,7 +16,7 @@
 DriveUnit::DriveUnit()
 {
     results = new std::vector<TestResult*>();
-    UnitFactory::getInstance().registerAll(this);
+    DynamicFactory<UnitTest>::getInstance().registerAll(this);
 }
 
 const std::vector< UnitFunction* > &DriveUnit::getFunctions() const
@@ -42,7 +42,7 @@ void DriveUnit::load(std::string solib)
     dl_list.insert(dl_list.end(), dlib);
     dlib = NULL;
 
-    UnitFactory::getInstance().registerAll(this);
+    DynamicFactory<UnitTest>::getInstance().registerAll(this);
 }
 
 void DriveUnit::unload()
@@ -55,7 +55,7 @@ void DriveUnit::unload()
         *itr = NULL;
     }
     dl_list.clear();
-    UnitFactory::getInstance().clear();
+    DynamicFactory<UnitTest>::getInstance().clear();
     functions.clear();
 }
 
