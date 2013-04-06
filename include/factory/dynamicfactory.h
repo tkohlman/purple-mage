@@ -6,11 +6,11 @@
 #ifndef DYNAMICFACTORY_H_INCLUDED
 #define DYNAMICFACTORY_H_INCLUDED
 
+#include "registrar.h"
+
 #include <map>
 #include <string>
 #include <iostream>
-
-class TestRegistrar;
 
 template <class DynamicType>
 class DynamicFactory
@@ -26,7 +26,7 @@ public:
 
     void insert(const DynamicTypeTemplate &testTemplate);
 
-    void registerAll(TestRegistrar *registrar);
+    void registerAll(Registrar *registrar);
 
     void clear();
 
@@ -54,7 +54,7 @@ void DynamicFactory<DynamicType>::insert(const DynamicTypeTemplate &typeTemplate
 }
 
 template <class DynamicType>
-void DynamicFactory<DynamicType>::registerAll(TestRegistrar *registrar)
+void DynamicFactory<DynamicType>::registerAll(Registrar *registrar)
 {
     typename DynamicTypeFactoryMap::iterator iter = factoryMap.begin();
     while(iter != factoryMap.end())

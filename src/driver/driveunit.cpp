@@ -100,11 +100,12 @@ void DriveUnit::add_unit(UnitTest *unit)
     tests.push_back(unit);
 }
 
-void DriveUnit::register_f(std::string suiteName, std::string testName, void (*f)())
+void DriveUnit::registerMethod(std::string className, std::string methodName,
+                               void (*methodPtr)())
 {
-    std::cout << "Registering function " << testName << " in suite " <<
-        suiteName << std::endl;
-    UnitFunction *func = new UnitFunction(suiteName, testName, f);
+    std::cout << "Registering method " << methodName << " in class " <<
+        className << std::endl;
+    UnitFunction *func = new UnitFunction(className, methodName, methodPtr);
     functions.push_back(func);
 }
 

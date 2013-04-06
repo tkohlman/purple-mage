@@ -6,7 +6,6 @@
 #ifndef UNITTEST_H
 #define UNITTEST_H
 
-#include "testregistrar.h"
 #include "dynamicfactory.h"
 
 #include <string>
@@ -14,12 +13,14 @@
 
 #define UNITTEST(t) class t; static proxy p(#t, create< t >);
 
+class Registrar;
+
 class UnitTest
 {
 
 public:
 
-    virtual void register_all(TestRegistrar *registrar) = 0;
+    virtual void register_all(Registrar *registrar) = 0;
 
     static void assert_equal(int i, int j);
 };

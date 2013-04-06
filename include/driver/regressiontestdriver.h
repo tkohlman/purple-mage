@@ -6,7 +6,7 @@
 #ifndef REGRESSIONTESTDRIVER_H
 #define REGRESSIONTESTDRIVER_H
 
-#include "testregistrar.h"
+#include "registrar.h"
 #include "regressiontest.h"
 #include "unitfunction.h"
 #include "subject.h"
@@ -16,7 +16,7 @@
 #include <iostream>
 #include <list>
 
-class RegressionTestDriver : TestRegistrar
+class RegressionTestDriver : Registrar
 {
 public:
 
@@ -26,7 +26,7 @@ public:
     void unload();
     void execute();
     void add_test(RegressionTest *unit);
-    void register_f(std::string suiteName, std::string testName, void (*f)());
+    void registerMethod(std::string suiteName, std::string testName, void (*f)());
 
     void registerObserver(Observer *observer);
     void unregisterObserver(Observer *observer);

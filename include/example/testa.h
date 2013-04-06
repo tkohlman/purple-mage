@@ -15,7 +15,7 @@ class TestA : public UnitTest
 
 public:
 
-        virtual void register_all(TestRegistrar *registrar);
+        virtual void register_all(Registrar *registrar);
 
 private:
 

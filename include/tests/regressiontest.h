@@ -6,7 +6,7 @@
 #ifndef REGRESSIONTEST_H
 #define REGRESSIONTEST_H
 
-#include "testregistrar.h"
+#include "registrar.h"
 #include "dynamicfactory.h"
 
 #include <string>
@@ -19,7 +19,7 @@ class RegressionTest
 
 public:
 
-    virtual void register_all(TestRegistrar *registrar) = 0;
+    virtual void register_all(Registrar *registrar) = 0;
 
     static void assert_equal(int i, int j);
 };

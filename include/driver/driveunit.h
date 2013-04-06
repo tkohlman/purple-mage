@@ -7,7 +7,7 @@
 #define DRIVEUNIT_H
 
 
-#include "testregistrar.h"
+#include "registrar.h"
 #include "unittest.h"
 #include "unitfunction.h"
 #include "subject.h"
@@ -17,7 +17,7 @@
 #include <iostream>
 #include <list>
 
-class DriveUnit : TestRegistrar, public Subject
+class DriveUnit : Registrar, public Subject
 {
 public:
 
@@ -27,7 +27,8 @@ public:
     void unload();
     void execute();
     void add_unit(UnitTest *unit);
-    void register_f(std::string suiteName, std::string testName, void (*f)());
+    void registerMethod(std::string className, std::string methodName,
+                        void (*methodPtr)());
 
     void registerObserver(Observer *observer);
     void unregisterObserver(Observer *observer);

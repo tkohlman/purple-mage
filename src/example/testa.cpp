@@ -5,12 +5,12 @@
 
 #include "testa.h"
 
-void TestA::register_all(TestRegistrar *registrar)
+void TestA::register_all(Registrar *registrar)
 {
-    registrar->register_f("TestA", "test1", &test1);
-    registrar->register_f("TestA", "test2", &test2);
-    registrar->register_f("TestA", "test3", &test3);
-    registrar->register_f("TestA", "test4", &test4);
+    registrar->registerMethod("TestA", "test1", &test1);
+    registrar->registerMethod("TestA", "test2", &test2);
+    registrar->registerMethod("TestA", "test3", &test3);
+    registrar->registerMethod("TestA", "test4", &test4);
 }
 
 void TestA::test1()
